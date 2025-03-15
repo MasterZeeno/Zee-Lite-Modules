@@ -1,0 +1,37 @@
+name: Update
+
+on:
+  # schedule:
+    # - cron: "0 0 * * *"
+  workflow_dispatch:
+  
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  update-release:
+    runs-on: ubuntu-latest
+    env:
+      ORIG_AUTHOR: ${{ secrets.ORIG_AUTHOR }}
+      ORIG_REPO_NAME: ${{ secrets.ORIG_REPO_NAME }}
+      ORIG_REPO_YT_ID: ${{ secrets.ORIG_REPO_YT_ID }}
+      ORIG_PATH_NAME: ${{ secrets.ORIG_PATH_NAME }}
+      MOD_AUTHOR: ${{ github.repository_owner }}
+      MOD_REPOSITORY: ${{ github.repository }}
+    steps:
+      - name: Check & Install Missing Packages
+        run: |
+          sudo apt-get update -y
+          for pkg in curl zip unzip jq moreutils aria2; do
+            dpkg -s "$pkg" &>/dev/null || sudo apt-get install -y "$pkg"
+          done
+          
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Test Global Variables
+        run: |
+          chmod +x test.sh
+          ./test.sh
+          
