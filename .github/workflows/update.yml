@@ -37,16 +37,15 @@ jobs:
       
       - name: Set Environment Variables
         run: |
-          MOD_REPO_NAME="${{ env.MOD_REPO_NAME }}"
+          MOD_REPO_NAME=$(basename "${{ env.MOD_REPOSITORY }}")
           MOD_REPO_YT_ID="$(echo ${MOD_REPO_NAME,,} | cut -d'-' -f1)-yt"
           
           echo "MOD_REPO_YT_ID=${MOD_REPO_YT_ID}" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +'%Y%m%d')" >> $GITHUB_ENV
-          echo "RELEASES_DIR=releases" >> $GITHUB_ENV
 
       - name: Verify ZIP Files
         run: |
-          ZIP_FILES=$(find "${{ env.RELEASES_DIR }}" -type f -name "*.zip")
+          ZIP_FILES=$(find releases -type f -name "*.zip")
           [[ -z "$ZIP_FILES" ]] && {
             echo "No ZIP files found in the release folder."
             exit 1
@@ -60,7 +59,7 @@ jobs:
           body: "Automatically generated release."
           draft: false
           prerelease: false
-          files: ${{ env.RELEASES_DIR }}/*.zip
+          files: releases/*.zip
           
       - name: Commit and Push Changes
         run: |
