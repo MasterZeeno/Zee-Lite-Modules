@@ -32,6 +32,7 @@ is_not_latest() {
 }
 
 CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+RELEASES_DIR="$CUR_DIR/releases"
 
 MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
 MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
@@ -48,6 +49,7 @@ LATEST_NAME=$(get_info name)
 LATEST_TAG=$(get_info tag_name)
 
 export CUR_DIR
+export RELEASES_DIR
 export MOD_REPO_YT_ID
 export MOD_DESC_YT
 export LATEST_DATA
