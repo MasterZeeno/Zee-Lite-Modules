@@ -77,3 +77,7 @@ export LATEST_NAME
 export LATEST_TAG
 
 export CURRENT_TAG_FILE
+
+for func in $(declare -F | awk '{print $3}'); do
+  export -f "$func"
+done
