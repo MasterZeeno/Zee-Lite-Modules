@@ -36,7 +36,7 @@ CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
 MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
 
-LATEST_DATA=$(curl -fsSL "$LATEST_URL")
+LATEST_DATA=$(curl -s "$LATEST_URL")
 LATEST_NAME=$(get_info name)
 LATEST_TAG=$(get_info tag_name)
 
