@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 [[ -z "$MOD_REPO_NAME" ]] && exit
 CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 
