@@ -89,10 +89,10 @@ for URL in "${URLS[@]}"; do
         replace="${ITEM##*=}"
         if ! grep -qF "$ITEM" <<< "$CONTENTS"; then
           CONTENTS=$(sed "s|^$search=.*|$search=$replace|" <<< "$CONTENTS")
-          echo "Success: '[$search]' - modified."
+          echo "Success: '$MOD_PROP --> [$ITEM]' - modified."
           MODIFIED=1
         else
-          echo "Skipped: '[$search]' - already modified."
+          echo "Skipped: '$MOD_PROP --> [$ITEM]' - already modified."
         fi
       done
       [[ $MODIFIED -eq 1 ]] && echo "$CONTENTS" > "$MOD_PROP"
@@ -102,12 +102,12 @@ for URL in "${URLS[@]}"; do
         --argjson versionCode "$(get_info versionCode "$MOD_PROP")" \
         --arg zipUrl "$ZIP_URL/$LATEST_TAG/$ZIP_FILE" \
         '{ version: $version, versionCode: $versionCode, zipUrl: $zipUrl }' > \
-        "$LOCAL_JSONFILE" && echo "Success: '$JSONFILE' - modified." || echo "Error: '$JSONFILE' - failed to modify."
+        "$LOCAL_JSONFILE" && echo "Success: '$LOCAL_JSONFILE' - modified." || echo "Error: '$LOCAL_JSONFILE' - failed to modify."
     else
       echo "Error: '$MOD_PROP' - not found/empty."
     fi
-    (cd "$TEMPORARY_DIR" && zip -mqr "$RELEASES_DIR/$ZIP_FILE" .) && echo "Success: '$ZIP_FILE' - zipped." || {
-      echo "Error: '$ZIP_FILE' - failed to zip."
+    (cd "$TEMPORARY_DIR" && zip -mqr "$RELEASES_DIR/$ZIP_FILE" .) && echo "Success: '$RELEASES_DIR/$ZIP_FILE' - zipped." || {
+      echo "Error: '$RELEASES_DIR/$ZIP_FILE' - failed to zip."
       exit 1
     }
   fi
