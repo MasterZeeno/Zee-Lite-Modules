@@ -2,7 +2,8 @@
 
 set -x
 
-[[ -z "$MOD_REPO_NAME" ]] && exit 1
+echo "$MOD_AUTHOR"
+[[ -z "$MOD_REPO_NAME" ]] && exit
 
 MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
 
@@ -37,7 +38,7 @@ for URL in "${URLS[@]}"; do
     aria2c --console-log-level=warn -x 16 -s 64 -j 1 \
       --max-tries=3 --retry-wait=2 -d "$DOWNLOADS_DIR" "$URL" || {
       echo "Error: '$ZIP_FILE' - failed to download."
-      exit 1
+      exit
     }
   fi
   if unzip -oq "$DOWNLOADS_DIR/$ZIP_FILE" -d "$TEMPORARY_DIR"; then
@@ -111,7 +112,7 @@ for URL in "${URLS[@]}"; do
     fi
     (cd "$TEMPORARY_DIR" && zip -mqr "$RELEASES_DIR/$ZIP_FILE" .) && echo "Success: '$ZIP_FILE' - zipped." || {
       echo "Error: '$ZIP_FILE' - failed to zip."
-      exit 1
+      exit
     }
   fi
 done
