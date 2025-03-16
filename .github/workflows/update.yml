@@ -30,7 +30,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      - name: Test Global Variables
+      - name: Run Script
         run: |
           chmod +x run.sh
           ./run.sh
@@ -45,27 +45,32 @@ jobs:
 
       - name: Verify ZIP Files
         run: |
-          ZIP_FILES=$(find releases -type f -name "*.zip")
-          [[ -z "$ZIP_FILES" ]] && {
-            echo "No ZIP files found in the release folder."
-            exit 1
-          }
+          echo "Using [find]"
+          find releases -type f -name "*.zip" -print
+          echo '------------------------'
+          echo "Using [ls]"
+          ls -ld releases
+          # ZIP_FILES=$(find releases -type f -name "*.zip")
+          # [[ -z "$ZIP_FILES" ]] && {
+            # echo "No ZIP files found in the release folder."
+            # exit 1
+          # }
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ env.TAG_NAME }}
-          name: "${{ env.TAG_NAME }}"
-          body: "Automatically generated release."
-          draft: false
-          prerelease: false
-          files: releases/*.zip
+      # - name: Create GitHub Release
+        # uses: softprops/action-gh-release@v2
+        # with:
+          # tag_name: ${{ env.TAG_NAME }}
+          # name: "${{ env.TAG_NAME }}"
+          # body: "Automatically generated release."
+          # draft: false
+          # prerelease: false
+          # files: releases/*.zip
           
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git pull
-          git add "${{ env.MOD_REPO_YT_ID }}" "TAG"
-          git commit -m "Auto-update ${{ env.MOD_AUTHOR }} YouTube Lite Module"
-          git push origin main
+      # - name: Commit and Push Changes
+        # run: |
+          # git config --global user.name "github-actions"
+          # git config --global user.email "actions@github.com"
+          # git pull
+          # git add "${{ env.MOD_REPO_YT_ID }}" "TAG"
+          # git commit -m "Auto-update ${{ env.MOD_AUTHOR }} YouTube Lite Module"
+          # git push origin main
