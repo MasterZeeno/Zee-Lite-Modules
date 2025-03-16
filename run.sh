@@ -1,6 +1,5 @@
 #!/bin/bash
-[[ -z "$CUR_DIR" ]] && exit 1
-trap 'rm -rf temporary' EXIT
+[[ -z "$CUR_DIR" || -z "$MOD_REPO_NAME" ]] && exit 1
 
 MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
 MOD_NAME_YT="$MOD_AUTHOR YouTube Lite"
