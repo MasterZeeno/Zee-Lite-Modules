@@ -14,7 +14,6 @@ TO_DELETE='Join t.me'
 
 TEMPORARY_DIR=$(mkdir_safe "$CUR_DIR/temporary")
 DOWNLOADS_DIR=$(mkdir_safe "$CUR_DIR/downloads")
-RELEASES_DIR=$(mkdir_safe "$CUR_DIR/releases")
 UPDATE_JSON_DIR=$(mkdir_safe "$MOD_REPO_YT_ID")
 
 CURR_TAG=$(cat_safe "$CURRENT_TAG_FILE")
