@@ -19,7 +19,6 @@ if [[ $LATEST_NAME =~ [Yy]ou[Tt]ube ]]; then
   if is_not_latest "$LATEST_TAG" "$CURR_TAG"; then
     echo "Alert: New release detected! [$LATEST_TAG]"
     rm -rf "$RELEASES_DIR"/*
-    echo "$LATEST_TAG" > "$CURRENT_TAG_FILE"
   else
     echo "Alert: Already on latest version! [$LATEST_TAG]"
     exit 0
@@ -112,3 +111,5 @@ for URL in "${URLS[@]}"; do
     }
   fi
 done
+
+echo "$LATEST_TAG" > "$CURRENT_TAG_FILE"
