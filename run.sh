@@ -6,6 +6,8 @@ CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 echo "RELEASES_DIR: $RELEASES_DIR"
 echo "CUR_DIR: $CUR_DIR"
 echo "HOME: $HOME"
+echo "Using PWD:"
+pwd
 
 MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
 
