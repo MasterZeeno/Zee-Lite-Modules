@@ -38,7 +38,6 @@ jobs:
           
           echo "CURRENT_TAG_FILE=${CURRENT_TAG_FILE}" >> $GITHUB_ENV
           echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
-          echo "RELEASES_DIR=${RELEASES_DIR}" >> $GITHUB_ENV
           echo "MOD_REPO_YT_ID=${MOD_REPO_YT_ID}" >> $GITHUB_ENV
           echo "MOD_DESC_YT=${MOD_DESC_YT}" >> $GITHUB_ENV
           
@@ -54,7 +53,7 @@ jobs:
           body: "Automatically generated release."
           draft: false
           prerelease: false
-          files: ${{ env.RELEASES_DIR }}/*.zip
+          files: releases/*.zip
           
       - name: Commit and Push Changes
         if: ${{ env.UPDATE_RELEASE == 'true' }}
