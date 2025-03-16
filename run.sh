@@ -47,9 +47,9 @@ for URL in "${URLS[@]}"; do
           CONTENTS=$(sed "s|.*$TO_MATCH.*|& $TO_APPEND|" <<< "$CONTENTS")
         fi
         NEW_CONTENTS=$(sed -e "/.*$TO_DELETE.*/d" \
-          -e "s|rvhc|$MOD_REPO_NAME|g" \
-          -e "s|/data/adb/.*.apk|/data/adb/$MOD_REPO_NAME/base.apk|g" \
-          -e "s|$ORIG_PATH_NAME=.*|$MOD_PATH_NAME=/data/adb/$MOD_REPO_NAME/base.apk|g" \
+          -e "s|rvhc|$MOD_REPO_YT_ID|g" \
+          -e "s|/data/adb/.*.apk|/data/adb/$MOD_REPO_YT_ID/base.apk|g" \
+          -e "s|$ORIG_PATH_NAME=.*|$MOD_PATH_NAME=/data/adb/$MOD_REPO_YT_ID/base.apk|g" \
           -e "s|$ORIG_PATH_NAME|$MOD_PATH_NAME|g" <<< "$CONTENTS")
         if [[ $NEW_CONTENTS != "$CONTENTS" ]]; then
           echo "$NEW_CONTENTS" > "$FILE"
@@ -82,7 +82,7 @@ for URL in "${URLS[@]}"; do
       MODIFIED=0
       CONTENTS=$(< "$MOD_PROP")
       JSONFILE=$(sed 's/_/-/; s/\.zip$/.json/' <<< "$ZIP_FILE")
-      for ITEM in "id=$MOD_REPO_NAME" "name=$MOD_NAME_YT" \
+      for ITEM in "id=$MOD_REPO_YT_ID" "name=$MOD_NAME_YT" \
         "author=$MOD_AUTHOR" "description=$MOD_DESC_YT" \
         "updateJson=$UPDATE_URL_RAW/$JSONFILE"; do
         search="${ITEM%=*}"
