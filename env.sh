@@ -45,6 +45,8 @@ RELEASES_DIR="$CUR_DIR/releases"
 
 MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
 MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
+MOD_NAME_YT="$MOD_AUTHOR YouTube Lite"
+MOD_DESC_YT="$MOD_NAME_YT Magisk Module"
 
 SITE_URL='https://github.com'
 SITE_API='https://api.github.com'
@@ -63,6 +65,7 @@ export CUR_DIR
 export RELEASES_DIR
 
 export MOD_REPO_YT_ID
+export MOD_NAME_YT
 export MOD_DESC_YT
 
 export LATEST_DATA
