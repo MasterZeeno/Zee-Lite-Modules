@@ -33,7 +33,8 @@ jobs:
           . env.sh
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            :> "$CURRENT_TAG_FILE"
+            echo "Running [${{ github.event_name }}]..."
+            :>"$CURRENT_TAG_FILE"
           fi
           
           chmod +x run.sh
