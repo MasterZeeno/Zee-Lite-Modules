@@ -38,10 +38,8 @@ jobs:
       - name: Set Environment Variables
         run: |
           MOD_REPO_NAME=$(basename "${{ env.MOD_REPOSITORY }}")
-          MOD_REPO_YT_ID="$(echo ${MOD_REPO_NAME,,} | cut -d'-' -f1)-yt"
-          
-          echo "MOD_REPO_YT_ID=${MOD_REPO_YT_ID}" >> $GITHUB_ENV
-          echo "TAG_NAME=$(date +'%Y%m%d')" >> $GITHUB_ENV
+          echo "MOD_REPO_YT_ID=$(echo ${MOD_REPO_NAME,,} | cut -d'-' -f1)-yt" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: Verify ZIP Files
         run: |

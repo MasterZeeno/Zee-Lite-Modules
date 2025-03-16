@@ -66,7 +66,7 @@ if [[ $LATEST_NAME =~ [Yy]ou[Tt]ube ]]; then
 else
   exit
 fi
-URLS=($(echo "$LATEST_DATA" | grep -Eo '"browser_download_url": *"[^"]+\.zip"' | sed -E 's/"browser_download_url": *"([^"]+)"/\1/' | head -n 2))
+URLS=($(echo "$LATEST_DATA" | grep -Eo '"browser_download_url": *"[^"]+\.zip"' | sed -E 's/"browser_download_url": *"([^"]+)"/\1/'))
 for URL in "${URLS[@]}"; do
   ZIP_FILE=$(basename "$URL")
   if [ ! -f "$DOWNLOADS_DIR/$ZIP_FILE" ]; then
