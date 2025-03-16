@@ -1,0 +1,30 @@
+name: Test Update
+
+on:
+  # schedule:
+    # - cron: "0 0 * * *"
+  workflow_dispatch:
+  
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test-update-release:
+    runs-on: ubuntu-latest
+    env:
+      ORIG_AUTHOR: ${{ secrets.ORIG_AUTHOR }}
+      ORIG_REPO_NAME: ${{ secrets.ORIG_REPO_NAME }}
+      ORIG_REPO_YT_ID: ${{ secrets.ORIG_REPO_YT_ID }}
+      ORIG_PATH_NAME: ${{ secrets.ORIG_PATH_NAME }}
+      MOD_AUTHOR: ${{ github.repository_owner }}
+      MOD_REPOSITORY: ${{ github.repository }}
+    steps:
+      - name: Test Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Test Global Variables
+        run: |
+          . env.sh
+          env
+          
