@@ -34,11 +34,8 @@ jobs:
           chmod +x run.sh
           ./run.sh
           
-          if has_release_zips; then
-            echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
-          else
-            echo "UPDATE_RELEASE=false" >> $GITHUB_ENV
-          fi
+          has_release_zips && echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
+          
           
       - name: Create GitHub Release
         if: ${{ env.UPDATE_RELEASE == 'true' }}
