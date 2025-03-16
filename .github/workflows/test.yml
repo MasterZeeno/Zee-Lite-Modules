@@ -1,8 +1,8 @@
 name: Test Update
 
 on:
-  # schedule:
-    # - cron: "0 0 * * *"
+  schedule:
+    - cron: "0 0 * * *"
   workflow_dispatch:
   
 defaults:
@@ -39,7 +39,9 @@ jobs:
           chmod +x run.sh
           ./run.sh
 
-          echo "$LATEST_TAG" > "$CURRENT_TAG_FILE"
+          if echo "$LATEST_TAG" > "$CURRENT_TAG_FILE"; then
+            echo "Updated to the latest tag: [$LATEST_TAG]"
+          fi
           
           echo "CURRENT_TAG_FILE=${CURRENT_TAG_FILE}" >> $GITHUB_ENV
           echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
@@ -47,6 +49,7 @@ jobs:
           echo "MOD_DESC_YT=${MOD_DESC_YT}" >> $GITHUB_ENV
 
           if find "$RELEASES_DIR" -type f -name "*.zip" -quit; then
+            echo "Uploading Release Module Zips..."
             echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
           else
             echo "UPDATE_RELEASE=false" >> $GITHUB_ENV
