@@ -1,13 +1,7 @@
 #!/bin/bash
 
-[[ -z "$MOD_REPO_NAME" ]] && exit
+[[ -z "$MOD_REPO_NAME" ]] && exit 1
 CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-
-echo "RELEASES_DIR: $RELEASES_DIR"
-echo "CUR_DIR: $CUR_DIR"
-echo "HOME: $HOME"
-echo "Using PWD:"
-pwd
 
 MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
 
@@ -29,10 +23,10 @@ if [[ $LATEST_NAME =~ [Yy]ou[Tt]ube ]]; then
     echo "$LATEST_TAG" > "$CURRENT_TAG_FILE"
   else
     echo "Alert: Already on latest version! [$LATEST_TAG]"
-    exit
+    exit 0
   fi
 else
-  exit
+  exit 1
 fi
 URLS=($(echo "$LATEST_DATA" | grep -Eo '"browser_download_url": *"[^"]+\.zip"' | sed -E 's/"browser_download_url": *"([^"]+)"/\1/'))
 for URL in "${URLS[@]}"; do
@@ -41,7 +35,7 @@ for URL in "${URLS[@]}"; do
     aria2c --console-log-level=warn -x 16 -s 64 -j 1 \
       --max-tries=3 --retry-wait=2 -d "$DOWNLOADS_DIR" "$URL" || {
       echo "Error: '$ZIP_FILE' - failed to download."
-      exit
+      exit 1
     }
   fi
   if unzip -oq "$DOWNLOADS_DIR/$ZIP_FILE" -d "$TEMPORARY_DIR"; then
@@ -115,7 +109,7 @@ for URL in "${URLS[@]}"; do
     fi
     (cd "$TEMPORARY_DIR" && zip -mqr "$RELEASES_DIR/$ZIP_FILE" .) && echo "Success: '$ZIP_FILE' - zipped." || {
       echo "Error: '$ZIP_FILE' - failed to zip."
-      exit
+      exit 1
     }
   fi
 done
