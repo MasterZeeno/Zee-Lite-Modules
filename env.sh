@@ -37,15 +37,6 @@ is_not_latest() {
   return 1
 }
 
-has_release_zips() {
-  if find "$RELEASES_DIR" -type f -name "*.zip" -quit; then
-    return 1
-  else
-    echo "No ZIP files found in the release folder."
-    return 0
-  fi
-}
-
 CUR_DIR="$(pwd)"
 RELEASES_DIR=$(mkdir_safe "$CUR_DIR/releases")
 CURRENT_TAG_FILE=$(touch_safe "$CUR_DIR/TAG")
