@@ -31,6 +31,11 @@ jobs:
       - name: Test Run Script
         run: |
           . env.sh
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            :> "$CURRENT_TAG_FILE"
+          fi
+          
           chmod +x run.sh
           ./run.sh
 
@@ -42,7 +47,6 @@ jobs:
           echo "MOD_DESC_YT=${MOD_DESC_YT}" >> $GITHUB_ENV
           
           has_release_zips && echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
-          
           
       - name: Create GitHub Release
         if: ${{ env.UPDATE_RELEASE == 'true' }}
