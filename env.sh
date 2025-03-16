@@ -46,8 +46,9 @@ has_release_zips() {
   fi
 }
 
-RELEASES_DIR=$(mkdir_safe releases)
-CURRENT_TAG_FILE=$(touch_safe TAG)
+CUR_DIR="$(pwd)"
+RELEASES_DIR=$(mkdir_safe "$CUR_DIR/releases")
+CURRENT_TAG_FILE=$(touch_safe "$CUR_DIR/TAG")
 
 MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
 MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
@@ -65,7 +66,10 @@ LATEST_DATA=$(curl -s "$LATEST_URL")
 LATEST_NAME=$(get_info name)
 LATEST_TAG=$(get_info tag_name)
 
+
+export CUR_DIR
 export RELEASES_DIR
+export CURRENT_TAG_FILE
 
 export MOD_REPO_NAME
 export MOD_REPO_YT_ID
@@ -75,8 +79,6 @@ export MOD_DESC_YT
 export LATEST_DATA
 export LATEST_NAME
 export LATEST_TAG
-
-export CURRENT_TAG_FILE
 
 for func in $(declare -F | awk '{print $3}'); do
   export -f "$func"
