@@ -15,13 +15,13 @@ DOWNLOADS_DIR=$(mkdir_safe "$CUR_DIR/downloads")
 RELEASES_DIR=$(mkdir_safe "$CUR_DIR/releases")
 UPDATE_JSON_DIR=$(mkdir_safe "$MOD_REPO_YT_ID")
 
-CURR_TAG=$(cat_safe "$CUR_DIR/TAG")
+CURR_TAG=$(cat_safe "$CURRENT_TAG_FILE")
 
 if [[ $LATEST_NAME =~ [Yy]ou[Tt]ube ]]; then
   if is_not_latest "$LATEST_TAG" "$CURR_TAG"; then
     echo "Alert: New release detected! [$LATEST_TAG]"
     rm -rf "$RELEASES_DIR"/*
-    echo "$LATEST_TAG" > "$CUR_DIR/TAG"
+    echo "$LATEST_TAG" > "$CURRENT_TAG_FILE"
   else
     echo "Alert: Already on latest version! [$LATEST_TAG]"
     exit
