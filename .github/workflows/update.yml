@@ -20,12 +20,17 @@ jobs:
       MOD_AUTHOR: ${{ github.repository_owner }}
       MOD_REPOSITORY: ${{ github.repository }}
     steps:
+      - name: Cache APT Packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          key: ubuntu-apt-${{ runner.os }}-${{ hashFiles('.github/workflows/*') }}
+          restore-keys: ubuntu-apt-${{ runner.os }}-
+
       - name: Check & Install Missing Packages
         run: |
           sudo apt-get update -y
-          for pkg in curl zip unzip jq moreutils aria2; do
-            dpkg -s "$pkg" &>/dev/null || sudo apt-get install -y "$pkg"
-          done
+          sudo apt-get install -y --no-install-recommends curl zip unzip jq moreutils aria2
           
       - name: Checkout Repository
         uses: actions/checkout@v4
