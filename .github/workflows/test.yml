@@ -30,7 +30,9 @@ jobs:
         
       - name: Test Run Script
         run: |
-          . env.sh && chmod +x run.sh && ./run.sh
+          . env.sh
+          chmod +x run.sh
+          ./run.sh
           
           if has_release_zips; then
             echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
