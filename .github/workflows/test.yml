@@ -41,8 +41,8 @@ jobs:
         if: ${{ env.UPDATE_RELEASE == 'true' }}
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.TAG_NAME }}
-          name: "${{ env.TAG_NAME }}"
+          tag_name: ${{ env.LATEST_TAG }}
+          name: "${{ env.LATEST_TAG }}"
           body: "Automatically generated release."
           draft: false
           prerelease: false
