@@ -1,7 +1,6 @@
 #!/bin/bash
 
 [[ -z "$MOD_REPO_NAME" ]] && exit 1
-CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 
 MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
 
