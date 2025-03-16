@@ -20,18 +20,50 @@ jobs:
       MOD_AUTHOR: ${{ github.repository_owner }}
       MOD_REPOSITORY: ${{ github.repository }}
     steps:
+      - name: Cache APT Packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          key: ubuntu-apt-${{ runner.os }}-${{ hashFiles('.github/workflows/*') }}
+          restore-keys: ubuntu-apt-${{ runner.os }}-
+
+      - name: Check & Install Missing Packages
+        run: |
+          DEBIAN_FRONTEND=noninteractive
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends curl zip unzip jq aria2
+          
       - name: Test Checkout Repository
         uses: actions/checkout@v4
         
-      - name: Test Global Variables
+      - name: Test Run Script
         run: |
-          . env.sh
-
-          declare -F | grep "_safe"
-          declare -F | grep "_info"
-          declare -F | grep "_latest"
+          . env.sh && chmod +x run.sh && ./run.sh
           
-          env | grep "MOD_"
-          env | grep "LATEST_"
-          env | grep "CUR_"
+          if has_release_zips; then
+            echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
+          else
+            echo "UPDATE_RELEASE=false" >> $GITHUB_ENV
+          fi
           
+      - name: Create GitHub Release
+        if: ${{ env.UPDATE_RELEASE == 'true' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: "${{ env.TAG_NAME }}"
+          body: "Automatically generated release."
+          draft: false
+          prerelease: false
+          files: ${{ env.RELEASES_DIR }}/*.zip
+          
+      - name: Commit and Push Changes
+        if: ${{ env.UPDATE_RELEASE == 'true' }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git pull
+          git add "${{ env.MOD_REPO_YT_ID }}" "${{ env.CURRENT_TAG_FILE }}"
+          git commit -m "Auto-update ${{ env.MOD_DESC_YT }}"
+          git push origin main
+      
