@@ -37,39 +37,25 @@ is_not_latest() {
   return 1
 }
 
-CUR_DIR="$(pwd)"
-RELEASES_DIR=$(mkdir_safe "$CUR_DIR/releases")
-CURRENT_TAG_FILE=$(touch_safe "$CUR_DIR/TAG")
+export CUR_DIR="$(pwd)"
+export RELEASES_DIR=$(mkdir_safe "$CUR_DIR/releases")
+export CURRENT_TAG_FILE=$(touch_safe "$CUR_DIR/TAG")
 
-MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
-MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
-MOD_NAME_YT="$MOD_AUTHOR YouTube Lite"
-MOD_DESC_YT="$MOD_NAME_YT Magisk Module"
+export MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
+export MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
+export MOD_NAME_YT="$MOD_AUTHOR YouTube Lite"
+export MOD_DESC_YT="$MOD_NAME_YT Magisk Module"
 
-SITE_URL='https://github.com'
-SITE_API='https://api.github.com'
-SITE_RAW='https://raw.githubusercontent.com'
-ZIP_URL="$SITE_URL/$MOD_AUTHOR/$MOD_REPO_NAME/releases/download"
-LATEST_URL="$SITE_API/repos/$ORIG_AUTHOR/$ORIG_REPO_NAME/releases/latest"
-UPDATE_URL_RAW="$SITE_RAW/$MOD_AUTHOR/$MOD_REPO_NAME/main/$MOD_REPO_YT_ID"
+export SITE_URL='https://github.com'
+export SITE_API='https://api.github.com'
+export SITE_RAW='https://raw.githubusercontent.com'
+export ZIP_URL="$SITE_URL/$MOD_AUTHOR/$MOD_REPO_NAME/releases/download"
+export LATEST_URL="$SITE_API/repos/$ORIG_AUTHOR/$ORIG_REPO_NAME/releases/latest"
+export UPDATE_URL_RAW="$SITE_RAW/$MOD_AUTHOR/$MOD_REPO_NAME/main/$MOD_REPO_YT_ID"
 
-LATEST_DATA=$(curl -s "$LATEST_URL")
-LATEST_NAME=$(get_info name)
-LATEST_TAG=$(get_info tag_name)
-
-
-export CUR_DIR
-export RELEASES_DIR
-export CURRENT_TAG_FILE
-
-export MOD_REPO_NAME
-export MOD_REPO_YT_ID
-export MOD_NAME_YT
-export MOD_DESC_YT
-
-export LATEST_DATA
-export LATEST_NAME
-export LATEST_TAG
+export LATEST_DATA=$(curl -s "$LATEST_URL")
+export LATEST_NAME=$(get_info name)
+export LATEST_TAG=$(get_info tag_name)
 
 for func in $(declare -F | awk '{print $3}'); do
   export -f "$func"
