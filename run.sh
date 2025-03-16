@@ -53,12 +53,12 @@ for URL in "${URLS[@]}"; do
           -e "s|$ORIG_PATH_NAME|$MOD_PATH_NAME|g" <<< "$CONTENTS")
         if [[ $NEW_CONTENTS != "$CONTENTS" ]]; then
           echo "$NEW_CONTENTS" > "$FILE"
-          echo "Success: '$(basename "$FILE")' - modified."
+          echo "Success: '$FILE' - modified."
         else
-          echo "Skipped: '$(basename "$FILE")' - already modified."
+          echo "Skipped: '$FILE' - already modified."
         fi
       else
-        echo "Error: '$(basename "$FILE")' - not found/empty."
+        echo "Error: '$FILE' - not found/empty."
       fi
     done
     echo
@@ -69,12 +69,12 @@ for URL in "${URLS[@]}"; do
       if ! grep -qF "$CONFIG_FX" <<< "$CONTENTS"; then
         echo "$CONTENTS" > "$CONFIG_FILE"
         echo "$CONFIG_FX" >> "$CONFIG_FILE"
-        echo "Success: '$(basename "$CONFIG_FILE") file' - modified."
+        echo "Success: '$CONFIG_FILE file' - modified."
       else
-        echo "Skipped: '$(basename "$CONFIG_FILE") file' - already modified."
+        echo "Skipped: '$CONFIG_FILE file' - already modified."
       fi
     else
-      echo "Error: '$(basename "$CONFIG_FILE") file' - not found/empty."
+      echo "Error: '$CONFIG_FILE file' - not found/empty."
     fi
     echo
     MOD_PROP="$TEMPORARY_DIR/module.prop"
@@ -104,7 +104,7 @@ for URL in "${URLS[@]}"; do
         '{ version: $version, versionCode: $versionCode, zipUrl: $zipUrl }' > \
         "$LOCAL_JSONFILE" && echo "Success: '$JSONFILE' - modified." || echo "Error: '$JSONFILE' - failed to modify."
     else
-      echo "Error: '$(basename "$MOD_PROP")' - not found/empty."
+      echo "Error: '$MOD_PROP' - not found/empty."
     fi
     (cd "$TEMPORARY_DIR" && zip -mqr "$RELEASES_DIR/$ZIP_FILE" .) && echo "Success: '$ZIP_FILE' - zipped." || {
       echo "Error: '$ZIP_FILE' - failed to zip."
