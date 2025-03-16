@@ -26,5 +26,12 @@ jobs:
       - name: Test Global Variables
         run: |
           . env.sh
+
+          declare -F | grep "_safe"
+          declare -F | grep "_info"
+          declare -F | grep "_latest"
+          
           env | grep "MOD_"
+          env | grep "LATEST_"
+          env | grep "CUR_"
           
