@@ -1,45 +1,30 @@
 #!/bin/bash
-[[ -z "$MOD_REPO_NAME" ]] && exit 1
-CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-[[ ${1:-0} -eq 1 ]] && : > "$CUR_DIR/TAG"
-mkdir_safe() {
-  local dir="$1"
-  [[ -d $dir ]] || mkdir -p "$dir"
-  echo "$dir"
-}
-cat_safe() {
-  local file="$1"
-  [[ -f $file ]] || touch "$file"
-  cat "$file"
-}
-get_info() {
-  local PROP="$1"
-  local DATA="${2:-$LATEST_DATA}"
-  local OPTR="${3:-=}"
-  [[ -f $DATA ]] && DATA=$(< "$DATA")
-  [[ -z $PROP ]] && echo "$DATA"
-  if echo "$DATA" | jq -e . > /dev/null 2>&1; then
-    jq -r --arg key "$PROP" '.[$key] // ""' <<< "$DATA"
-  else
-    awk -F "$OPTR" -v k="$PROP" '$1 == k {print $2}' <<< "$DATA"
-  fi
-}
-is_not_latest() {
-  local LATEST="$1"
-  local CURRENT="$2"
-  [[ -z $CURRENT ]] && return 0
-  [[ $CURRENT != "$(printf '%s\n%s' "$LATEST" "$CURRENT" | sort -rV | head -n1)" ]] && return 0
-  return 1
-}
-trap 'rm -rf "$TEMPORARY_DIR"' EXIT
+[[ -z "$CUR_DIR" ]] && exit 1
+trap 'rm -rf temporary' EXIT
+
+MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
+MOD_NAME_YT="$MOD_AUTHOR YouTube Lite"
+MOD_DESC_YT="$MOD_NAME_YT Magisk Module"
+
+SITE_URL='https://github.com'
+SITE_API='https://api.github.com'
+SITE_RAW='https://raw.githubusercontent.com'
+ZIP_URL="$SITE_URL/$MOD_AUTHOR/$MOD_REPO_NAME/releases/download"
+LATEST_URL="$SITE_API/repos/$ORIG_AUTHOR/$ORIG_REPO_NAME/releases/latest"
+UPDATE_URL_RAW="$SITE_RAW/$MOD_AUTHOR/$MOD_REPO_NAME/main/$MOD_REPO_YT_ID"
+
+TO_MATCH='VERSION='
+CUSTOM_FX='RESOLVE_VERSION'
+TO_APPEND="VERSION=\$($CUSTOM_FX \"\$VERSION\")"
+TO_DELETE='Join t.me'
+
 TEMPORARY_DIR=$(mkdir_safe "$CUR_DIR/temporary")
 DOWNLOADS_DIR=$(mkdir_safe "$CUR_DIR/downloads")
 RELEASES_DIR=$(mkdir_safe "$CUR_DIR/releases")
 UPDATE_JSON_DIR=$(mkdir_safe "$MOD_REPO_YT_ID")
-LATEST_DATA=$(curl -s "$LATEST_URL")
-LATEST_NAME=$(get_info name)
-LATEST_TAG=$(get_info tag_name)
+
 CURR_TAG=$(cat_safe "$CUR_DIR/TAG")
+
 if [[ $LATEST_NAME =~ [Yy]ou[Tt]ube ]]; then
   if is_not_latest "$LATEST_TAG" "$CURR_TAG"; then
     echo "Alert: New release detected! [$LATEST_TAG]"
