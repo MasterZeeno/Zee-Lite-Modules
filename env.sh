@@ -39,10 +39,10 @@ is_not_latest() {
 
 has_release_zips() {
   if find "$RELEASES_DIR" -type f -name "*.zip" -quit; then
-    return 0
+    return 1
   else
     echo "No ZIP files found in the release folder."
-    return 1
+    return 0
   fi
 }
 
