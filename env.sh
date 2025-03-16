@@ -67,6 +67,7 @@ LATEST_TAG=$(get_info tag_name)
 
 export RELEASES_DIR
 
+export MOD_REPO_NAME
 export MOD_REPO_YT_ID
 export MOD_NAME_YT
 export MOD_DESC_YT
