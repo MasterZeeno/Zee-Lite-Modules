@@ -1,3 +1,9 @@
+touch_safe() {
+  local file="$1"
+  [[ -f $file ]] || touch "$file"
+  echo "$file"
+}
+
 mkdir_safe() {
   local dir="$1"
   [[ -d $dir ]] || mkdir -p "$dir"
@@ -40,8 +46,8 @@ has_release_zips() {
   fi
 }
 
-CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-RELEASES_DIR="$CUR_DIR/releases"
+RELEASES_DIR=$(mkdir_safe releases)
+CURRENT_TAG_FILE=$(touch_safe TAG)
 
 MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
 MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
@@ -59,9 +65,6 @@ LATEST_DATA=$(curl -s "$LATEST_URL")
 LATEST_NAME=$(get_info name)
 LATEST_TAG=$(get_info tag_name)
 
-CURRENT_TAG_FILE="$CUR_DIR/TAG"
-
-export CUR_DIR
 export RELEASES_DIR
 
 export MOD_REPO_YT_ID
