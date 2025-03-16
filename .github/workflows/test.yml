@@ -45,8 +45,12 @@ jobs:
           echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
           echo "MOD_REPO_YT_ID=${MOD_REPO_YT_ID}" >> $GITHUB_ENV
           echo "MOD_DESC_YT=${MOD_DESC_YT}" >> $GITHUB_ENV
-          
-          has_release_zips && echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
+
+          if find "$RELEASES_DIR" -type f -name "*.zip" -quit; then
+            echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
+          else
+            echo "UPDATE_RELEASE=false" >> $GITHUB_ENV
+          fi
           
       - name: Create GitHub Release
         if: ${{ env.UPDATE_RELEASE == 'true' }}
