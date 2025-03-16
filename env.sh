@@ -31,6 +31,15 @@ is_not_latest() {
   return 1
 }
 
+has_release_zips() {
+  if find "$RELEASES_DIR" -type f -name "*.zip" -quit; then
+    return 0
+  else
+    echo "No ZIP files found in the release folder."
+    return 1
+  fi
+}
+
 CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 RELEASES_DIR="$CUR_DIR/releases"
 
