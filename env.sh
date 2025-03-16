@@ -36,6 +36,13 @@ CUR_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
 MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
 
+SITE_URL='https://github.com'
+SITE_API='https://api.github.com'
+SITE_RAW='https://raw.githubusercontent.com'
+ZIP_URL="$SITE_URL/$MOD_AUTHOR/$MOD_REPO_NAME/releases/download"
+LATEST_URL="$SITE_API/repos/$ORIG_AUTHOR/$ORIG_REPO_NAME/releases/latest"
+UPDATE_URL_RAW="$SITE_RAW/$MOD_AUTHOR/$MOD_REPO_NAME/main/$MOD_REPO_YT_ID"
+
 LATEST_DATA=$(curl -s "$LATEST_URL")
 LATEST_NAME=$(get_info name)
 LATEST_TAG=$(get_info tag_name)
