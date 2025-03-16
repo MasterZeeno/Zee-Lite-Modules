@@ -1,8 +1,9 @@
-MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
-MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
-MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
-MOD_NAME_YT="$MOD_AUTHOR YouTube Lite"
-MOD_DESC_YT="$MOD_NAME_YT Magisk Module"
+export MOD_REPO_NAME=$(basename "$MOD_REPOSITORY")
+export MOD_REPO_YT_ID="$(echo "${MOD_REPO_NAME,,}" | cut -d'-' -f1)-yt"
+export MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
+export MOD_NAME_YT="$MOD_AUTHOR YouTube Lite"
+export MOD_DESC_YT="$MOD_NAME_YT Magisk Module"
+
 SITE_URL='https://github.com'
 SITE_API='https://api.github.com'
 SITE_RAW='https://raw.githubusercontent.com'
