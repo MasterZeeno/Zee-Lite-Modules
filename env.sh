@@ -57,10 +57,16 @@ LATEST_DATA=$(curl -s "$LATEST_URL")
 LATEST_NAME=$(get_info name)
 LATEST_TAG=$(get_info tag_name)
 
+CURRENT_TAG_FILE="$CUR_DIR/TAG"
+
 export CUR_DIR
 export RELEASES_DIR
+
 export MOD_REPO_YT_ID
 export MOD_DESC_YT
+
 export LATEST_DATA
 export LATEST_NAME
 export LATEST_TAG
+
+export CURRENT_TAG_FILE
