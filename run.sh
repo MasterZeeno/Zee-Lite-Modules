@@ -2,7 +2,7 @@
 
 set -x
 
-[[ -z "$CUR_DIR" || -z "$MOD_REPO_NAME" ]] && exit 1
+[[ -z "$MOD_REPO_NAME" ]] && exit 1
 
 MOD_PATH_NAME="$(echo "${MOD_REPO_NAME^^}" | cut -d'-' -f1)PATH"
 
