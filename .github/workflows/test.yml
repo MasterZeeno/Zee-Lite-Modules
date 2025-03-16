@@ -33,6 +33,14 @@ jobs:
           . env.sh
           chmod +x run.sh
           ./run.sh
+
+          echo "$LATEST_TAG" > "$CURRENT_TAG_FILE"
+          
+          echo "CURRENT_TAG_FILE=${CURRENT_TAG_FILE}" >> $GITHUB_ENV
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+          echo "RELEASES_DIR=${RELEASES_DIR}" >> $GITHUB_ENV
+          echo "MOD_REPO_YT_ID=${MOD_REPO_YT_ID}" >> $GITHUB_ENV
+          echo "MOD_DESC_YT=${MOD_DESC_YT}" >> $GITHUB_ENV
           
           has_release_zips && echo "UPDATE_RELEASE=true" >> $GITHUB_ENV
           
