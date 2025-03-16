@@ -69,12 +69,12 @@ for URL in "${URLS[@]}"; do
       if ! grep -qF "$CONFIG_FX" <<< "$CONTENTS"; then
         echo "$CONTENTS" > "$CONFIG_FILE"
         echo "$CONFIG_FX" >> "$CONFIG_FILE"
-        echo "Success: '$CONFIG_FILE file' - modified."
+        echo "Success: '$CONFIG_FILE' - modified."
       else
-        echo "Skipped: '$CONFIG_FILE file' - already modified."
+        echo "Skipped: '$CONFIG_FILE' - already modified."
       fi
     else
-      echo "Error: '$CONFIG_FILE file' - not found/empty."
+      echo "Error: '$CONFIG_FILE' - not found/empty."
     fi
     echo
     MOD_PROP="$TEMPORARY_DIR/module.prop"
