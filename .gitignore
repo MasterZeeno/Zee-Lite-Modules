@@ -1,3 +1,7 @@
-downloads/
-releases/
-*.zip
+*
+.*
+
+!.[Gg][Ii][Tt]*
+![Zz][Ee][Ee]_*
+
+!README*
