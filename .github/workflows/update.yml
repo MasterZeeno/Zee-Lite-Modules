@@ -36,6 +36,8 @@ jobs:
 
           echo "CHANGED=${CHANGED:-false}" >> $GITHUB_ENV
 
+          echo "$CHANGED"
+
       - name: Push Changes
         if: env.CHANGED == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
