@@ -33,6 +33,7 @@ jobs:
       - name: Source Release Script
         run: source release.sh ${{ matrix.os }} 1
       - name: Create Release
+        if: env.CHANGED == 'true'
         id: create_release
         uses: comnoco/create-release@v2
         env:
