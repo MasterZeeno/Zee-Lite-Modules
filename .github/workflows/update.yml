@@ -31,7 +31,7 @@ jobs:
           done
           
           chmod +x release.sh
-          ./release.sh 1
+          source release.sh 1
           
           echo "CHANGED=${CHANGED:-false}"
           echo "CHANGED=${CHANGED:-false}" >> $GITHUB_ENV
