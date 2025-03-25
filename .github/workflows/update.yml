@@ -33,7 +33,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update Magisk Modules"
-          file_pattern: "zee_/*.json"
+          file_pattern: "zee_*/*.json"
           push_options: "--force"
           skip_dirty_check: true
           skip_fetch: true
