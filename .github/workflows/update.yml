@@ -32,13 +32,9 @@ jobs:
           done
           
           chmod +x release.sh
-          bash release.sh 1
+          bash release.sh ${{ github.repository_owner }} 1
           
-          echo "CHANGED=${CHANGED:-false}"
           echo "CHANGED=${CHANGED:-false}" >> $GITHUB_ENV
-
-      - name: Debug CHANGED value
-        run: echo "CHANGED=${{ env.CHANGED }}"
 
       - name: Push Changes
         if: env.CHANGED == 'true'
