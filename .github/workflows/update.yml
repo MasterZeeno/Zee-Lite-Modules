@@ -34,10 +34,9 @@ jobs:
           chmod +x release.sh
           bash release.sh ${{ github.repository_owner }} 1
 
-          echo "CHANGED=${CHANGED:-false}"
+          echo "Before: $CHANGED"
           echo "CHANGED=${CHANGED:-false}" >> $GITHUB_ENV
-
-          echo "$CHANGED"
+          echo "After: $CHANGED"
 
       - name: Push Changes
         if: env.CHANGED == 'true'
