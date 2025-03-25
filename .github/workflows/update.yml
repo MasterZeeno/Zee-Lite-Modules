@@ -37,6 +37,12 @@ jobs:
           echo "CHANGED=${CHANGED:-false}" >> $GITHUB_ENV
           echo "After: $CHANGED"
 
+      - name: Try if Variables
+        if: env.CHANGED == 'true'
+        run: |
+          echo "Trial: $CHANGED"
+          echo "Github env: ${{ env.CHANGED }}"
+
       # - name: Push Changes
       #   if: env.CHANGED == 'true'
       #   uses: stefanzweifel/git-auto-commit-action@v5
