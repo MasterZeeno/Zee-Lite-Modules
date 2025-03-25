@@ -11,12 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      # - name: Update And Install Packages
-      #   run: |
-      #     sudo apt-get update -y
-      #     sudo apt-get install -y \
-      #       --no-install-recommends \
-      #       bash git curl zip unzip jq aria2
+      - name: Update And Install Packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            --no-install-recommends \
+            bash git curl zip unzip jq aria2
             
       - name: Get Release Script and Run
         run: |
