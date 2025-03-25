@@ -15,7 +15,7 @@ jobs:
           sudo apt-get install -y \
             --no-install-recommends \
             bash git curl zip unzip jq aria2
-          url="https://api.github.com/repos/${{ github.repository }}-Updater/contents"
+          url="https://raw.githubusercontent.com/${{ github.repository }}-Updater/main"
           for file in .gitconfig release.sh; do
             curl -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
              -H "Accept: application/vnd.github.v3.raw" -L "$url/$file" -o "$file"
