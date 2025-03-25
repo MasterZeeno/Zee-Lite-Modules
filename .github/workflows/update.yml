@@ -26,6 +26,7 @@ jobs:
           
   update:
     runs-on: ubuntu-latest
+    needs: prepare
     strategy:
       matrix:
         os: [m, v]
