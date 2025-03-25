@@ -22,7 +22,7 @@ jobs:
         run: |
           url="https://api.github.com/repos/${{ github.repository }}-Updater/contents"
           
-          for file in .gitignore release.sh; do
+          for file in .gitconfig release.sh; do
             curl -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
              -H "Accept: application/vnd.github.v3.raw" -L "$url/$file" -o "$file"
              
