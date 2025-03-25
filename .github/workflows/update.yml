@@ -26,14 +26,14 @@ jobs:
             { echo "Error: Failed to download $file"; exit 1; }
           done
           chmod +x release.sh
-          source release.sh ${{ matrix.os }} 1
+          source release.sh 1
 
       - name: Push Changes
         if: env.CHANGED == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update ${{ env.APP }} Magisk Modules"
-          file_pattern: "${{ env.FOLDER }}/*.json"
+          commit_message: "Update Magisk Modules"
+          file_pattern: "zee_/*.json"
           push_options: "--force"
           skip_dirty_check: true
           skip_fetch: true
