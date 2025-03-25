@@ -19,6 +19,7 @@ jobs:
             git curl zip unzip jq aria2
             
       - name: Get Release Script and Run
+        shell: bash
         run: |
           url="https://api.github.com/repos/${{ github.repository }}-Updater/contents"
           
