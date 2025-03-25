@@ -28,6 +28,10 @@ jobs:
              
             [[ -f "$file" ]] || \
             { echo "Error: Failed to download $file"; exit 1; }
+
+            echo -e "\n${file}:\n"
+            cat "$file"
+            echo " "
           done
           
           chmod +x release.sh
