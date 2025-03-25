@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  prepare:
+  update-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,7 +14,10 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y \
             --no-install-recommends \
-            bash git curl zip unzip jq aria2
+            git curl zip unzip jq aria2  
+      - name: Get and Run Release Script
+        shell: bash
+        run: |
           url="https://raw.githubusercontent.com/${{ github.repository }}-Updater/main"
           for file in .gitconfig release.sh; do
             curl -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
@@ -23,17 +26,7 @@ jobs:
             { echo "Error: Failed to download $file"; exit 1; }
           done
           chmod +x release.sh
-          
-  update:
-    runs-on: ubuntu-latest
-    needs: prepare
-    strategy:
-      matrix:
-        os: [m, v]
-    steps:   
-      - name: Source Release Script
-        shell: bash
-        run: source release.sh ${{ matrix.os }} 1
+          source release.sh ${{ matrix.os }} 1
 
       - name: Push Changes
         if: env.CHANGED == 'true'
