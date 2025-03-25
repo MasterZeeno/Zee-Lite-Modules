@@ -20,11 +20,13 @@ jobs:
             
       - name: Get Release Script and Run
         run: |
-          url="https://raw.githubusercontent.com/${{ github.repository }}-Updater/main"
+          url="https://api.github.com/repos/${{ github.repository }}-Updater/contents"
           
           for file in .gitignore release.sh; do
-            curl -L -o "$file" "$url/$file"
-            [[ -f release.sh ]] || \
+            curl -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+             -H "Accept: application/vnd.github.v3.raw" -L "$url/$file" -o "$file"
+             
+            [[ -f "$file" ]] || \
             { echo "Error: Failed to download $file"; exit 1; }
           done
           
