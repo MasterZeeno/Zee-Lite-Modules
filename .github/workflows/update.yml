@@ -32,19 +32,8 @@ jobs:
         os: [m, v]
     steps:   
       - name: Source Release Script
+        shell: bash
         run: source release.sh ${{ matrix.os }} 1
-      - name: Create Release
-        if: env.CHANGED == 'true'
-        id: create_release
-        uses: comnoco/create-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: ${{ env.RELEASE_NAME }}
-          body: ${{ env.RELEASE_BODY }}
-          draft: false
-          prerelease: false
 
       - name: Push Changes
         if: env.CHANGED == 'true'
