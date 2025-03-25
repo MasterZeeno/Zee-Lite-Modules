@@ -32,10 +32,7 @@ jobs:
           
           chmod +x release.sh
           source release.sh 1 "${{ github.repository_owner }}"
-
-          echo "Actions variable: $CHANGED"
-          echo "CHANGED=${CHANGED:-false}" >> $GITHUB_ENV
-          # if: env.CHANGED == 'true'
+          # echo "CHANGED=${CHANGED:-false}" >> $GITHUB_ENV
 
       - name: Try if Variables
         run: |
