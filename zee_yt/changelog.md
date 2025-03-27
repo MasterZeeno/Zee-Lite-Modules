@@ -4,9 +4,6 @@ Patch version: v5.4.1
 
 # Changelogs 
 
-- bumped YouTube base to 19.44.39 (STABLE)
-- Also providing Alternative updates for 19.16.39 (STABLE) & 20.06.42 (BETA)
-- Make sure to read this before using 20.06.42 : https://github.com/inotia00/ReVanced_Extended/issues/2717
 
 - chore(YouTube - Hide ads): Remove duplicated ads filter
 - chore(YouTube - Inclusive span): Update SpanType
@@ -25,7 +22,6 @@ Patch version: v5.4.1
 - feat(YouTube - Hide feed flyout menu): Add setting Feed flyout menu filter type
 - feat(YouTube - Hide layout components): Add setting Account menu filter type (Close inotia00/ReVanced_Extended#2574)
 - feat(YouTube - Navigation bar components): Add user dialog message
-- feat(YouTube - Seekbar components): Add option to use custom seekbar accent color (For YouTube 19.25.39+, Close inotia00/ReVanced_Extended#2738)
 
 - feat(YouTube - Spoof streaming data): Change Default client to iOS TV inotia00/ReVanced_Extended#2777
 
