@@ -18,7 +18,6 @@
 - fix(YouTube Music - SponsorBlock): Change segment behavior and About sections are hidden in the settings inotia00/ReVanced_Extended#2575
 - feat(YouTube Music/Translations): update translation
 
-# Version Comparison 
 
 
 **Thanks to @inotia00**
